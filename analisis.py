@@ -78,12 +78,13 @@ tablaSiembras=pd.read_csv('./Siembras.csv')
 #Los datos de la veredas Quitasol de BELLO ordenados de menor a mayor y el promedio de arboles sembrados en esta vereda
 tablaDatos_Bello=tablaSiembras[(tablaSiembras ['Ciudad'] =="Bello") & (tablaSiembras ['Vereda'] =="Quitasol")]
 tablaDatos_Bello = tablaDatos_Bello.sort_values (by="Arboles")
-tablaDatos_Bello=tablaDatos_Bello.sort_values(median="Arboles")
-print(tablaDatos_Bello)
-#archivoHTML=tablaDatos_Bello.to_html()
-#archivoTEXTO=open("Datos_Bello.html","w",encoding="utf-8")
-#archivoTEXTO.write(archivoHTML) 
-#archivoTEXTO.close() 
+estadisticas=tablaDatos_Bello.describe()
+medias=estadisticas.loc[['mean']]
+mediasArboles=medias["Arboles"].to_frame()
+archivoHTML=mediasArboles.to_html()
+archivoTEXTO=open("Datos_Media_Arboles.html","w",encoding="utf-8")
+archivoTEXTO.write(archivoHTML) 
+archivoTEXTO.close() 
 
 
 
